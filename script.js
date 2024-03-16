@@ -12,6 +12,7 @@ document.getElementById('next-pokemon').addEventListener('click', function() {
 });
 
 let currentPokemonId = 0;
+let chartInstance = null;
 
 function searchPokemon(query) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`)
@@ -24,7 +25,6 @@ function searchPokemon(query) {
         .then(data => {
             currentPokemonId = data.id;
             displayPokemon(data);
-            updateChart(data);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -45,7 +45,14 @@ function displayPokemon(data) {
         <img src="${data.sprites.front_default}" alt="${data.name}">
         <p>図鑑番号: ${data.id}</p>
         <p>タイプ: ${data.types.map(type => type.type.name).join(', ')}</p>
+        <p>HP: ${data.stats[0].base_stat}</p>
+        <p>攻撃: ${data.stats[1].base_stat}</p>
+        <p>防御: ${data.stats[2].base_stat}</p>
+        <p>特攻: ${data.stats[3].base_stat}</p>
+        <p>特防: ${data.stats[4].base_stat}</p>
+        <p>素早さ: ${data.stats[5].base_stat}</p>
     `;
+    updateChart(data);
 }
 
 function displayError(message) {
@@ -54,9 +61,12 @@ function displayError(message) {
 }
 
 function updateChart(data) {
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
     let stats = data.stats.map(s => s.base_stat);
     let ctx = document.getElementById('pokemonStatsChart').getContext('2d');
-    new Chart(ctx, {
+    chartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
             labels: ['HP', '攻撃', '防御', '特攻', '特防', '素早さ'],
