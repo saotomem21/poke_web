@@ -5,9 +5,17 @@ document.getElementById('search-button').addEventListener('click', function() {
 
 function searchPokemon(query) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('無効な入力です');
+            }
+            return response.json();
+        })
         .then(data => displayPokemon(data))
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            displayError(error.message); // エラーメッセージを表示
+        });
 }
 
 function displayPokemon(data) {
@@ -24,4 +32,9 @@ function displayPokemon(data) {
         <p>特防: ${data.stats[4].base_stat}</p>
         <p>素早さ: ${data.stats[5].base_stat}</p>
     `;
+}
+
+function displayError(message) {
+    let infoDiv = document.getElementById('pokemon-info');
+    infoDiv.innerHTML = `<p>${message}</p>`;
 }
