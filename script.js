@@ -3,6 +3,16 @@ document.getElementById('search-button').addEventListener('click', function() {
     searchPokemon(input);
 });
 
+document.getElementById('prev-pokemon').addEventListener('click', function() {
+    changePokemon(-1);
+});
+
+document.getElementById('next-pokemon').addEventListener('click', function() {
+    changePokemon(1);
+});
+
+let currentPokemonId = 0; // 現在表示されているポケモンのIDを保持する変数
+
 function searchPokemon(query) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`)
         .then(response => {
@@ -11,11 +21,20 @@ function searchPokemon(query) {
             }
             return response.json();
         })
-        .then(data => displayPokemon(data))
+        .then(data => {
+            currentPokemonId = data.id; // 現在のポケモンIDを更新
+            displayPokemon(data);
+        })
         .catch(error => {
             console.error('Error:', error);
             displayError(error.message); // エラーメッセージを表示
         });
+}
+
+function changePokemon(change) {
+    let newId = currentPokemonId + change;
+    if (newId < 1) newId = 1; // 図鑑番号が1未満にならないようにする
+    searchPokemon(newId.toString());
 }
 
 function displayPokemon(data) {
