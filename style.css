@@ -16,3 +16,20 @@ header {
 #pokemon-info {
     margin-top: 20px;
 }
+
+/* 既存のスタイルの後に追加 */
+
+#nav-arrows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pokemon-info {
+    margin: 0 20px; /* ポケモン情報と矢印の間隔を調整 */
+}
+
+#prev-pokemon, #next-pokemon {
+    cursor: pointer; /* ホバー時にカーソルをポインターに */
+    /* その他のボタンのスタイリング、例えばサイズや背景色など */
+}
