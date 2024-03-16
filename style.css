@@ -33,3 +33,8 @@ header {
     cursor: pointer; /* ホバー時にカーソルをポインターに */
     /* その他のボタンのスタイリング、例えばサイズや背景色など */
 }
+
+#pokemonStatsChart {
+    max-width: 400px; /* または適切なサイズに調整 */
+    margin: 20px auto; /* グラフのマージンを調整 */
+}
