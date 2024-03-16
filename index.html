@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ポケモン情報検索</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.jsの追加 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -17,10 +17,12 @@
         </div>
         <div id="nav-arrows">
             <button id="prev-pokemon">&lt;</button>
-            <div id="pokemon-info"></div>
+            <div id="pokemon-container">
+                <div id="pokemon-info"></div>
+                <canvas id="pokemonStatsChart"></canvas>
+            </div>
             <button id="next-pokemon">&gt;</button>
         </div>
-        <canvas id="pokemonStatsChart"></canvas> <!-- グラフ表示用のcanvas -->
     </main>
     <script src="script.js"></script>
 </body>

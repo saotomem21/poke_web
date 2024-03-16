@@ -38,3 +38,13 @@ header {
     max-width: 400px; /* または適切なサイズに調整 */
     margin: 20px auto; /* グラフのマージンを調整 */
 }
+
+/* 既存のスタイルはそのままにします */
+
+#pokemon-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* 他の必要なスタイリング */
