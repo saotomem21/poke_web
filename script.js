@@ -1,3 +1,5 @@
+import { typeTranslations } from './types.js';
+
 document.getElementById('search-button').addEventListener('click', function() {
     let input = document.getElementById('search-input').value;
     searchPokemon(input);
@@ -41,11 +43,15 @@ function changePokemon(change) {
 
 function displayPokemon(data) {
     let infoDiv = document.getElementById('pokemon-info');
+    // ポケモンのタイプを英語から日本語に変換
+    let types = data.types.map(type => typeTranslations[type.type.name] || type.type.name).join(', ');
+
+    // ポケモンの情報を表示
     infoDiv.innerHTML = `
         <h2>${data.name}</h2>
         <img src="${data.sprites.front_default}" alt="${data.name}">
         <p>図鑑番号: ${data.id}</p>
-        <p>タイプ: ${data.types.map(type => type.type.name).join(', ')}</p>
+        <p>タイプ: ${types}</p>
         <p>HP: ${data.stats[0].base_stat}</p>
         <p>攻撃: ${data.stats[1].base_stat}</p>
         <p>防御: ${data.stats[2].base_stat}</p>
@@ -53,8 +59,10 @@ function displayPokemon(data) {
         <p>特防: ${data.stats[4].base_stat}</p>
         <p>素早さ: ${data.stats[5].base_stat}</p>
     `;
+
     updateChart(data);
 }
+
 
 function displayError(message) {
     let infoDiv = document.getElementById('pokemon-info');
