@@ -35,6 +35,7 @@ function searchPokemon(query) {
 function changePokemon(change) {
     let newId = currentPokemonId + change;
     if (newId < 1) newId = 1;
+    document.getElementById('search-input').value = newId; // 検索窓を更新
     searchPokemon(newId.toString());
 }
 
